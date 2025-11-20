@@ -1,5 +1,5 @@
 package com.example.lab_week_10
-// commit 1
+
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -21,16 +21,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateText(total: Int) {
-        findViewById<TextView>(R.id.text_total).text =
-            getString(R.string.text_total, total)
+        findViewById<TextView>(R.id.text_total).text = getString(R.string.text_total, total)
     }
 
     private fun prepareViewModel() {
-       updateText(viewModel.total)
+        viewModel.total.observe(this) { total ->
+            updateText(total)
+        }
 
         findViewById<Button>(R.id.button_increment).setOnClickListener {
-            val t = viewModel.incrementTotal()
-            updateText(t)
+            viewModel.incrementTotal()
         }
     }
 }
